@@ -9,10 +9,20 @@ namespace Olimpo
         {
             builder.ConfigureServices((hostContext, services) => 
             {
-                services.AddSingleton<IEventAggregator, EventAggregator>();
+                services.RegisterEventAggregator();
             });
 
             return builder;
         }  
+    }
+
+    public static class ServiceCollectionExtensions
+    {
+        public static IServiceCollection RegisterEventAggregator(this IServiceCollection serviceCollection)
+        {
+            serviceCollection.AddSingleton<IEventAggregator, EventAggregator>();
+
+            return serviceCollection;
+        }
     }
 }
